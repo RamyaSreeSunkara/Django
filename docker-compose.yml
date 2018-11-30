@@ -1,11 +1,22 @@
-version: '3'
+version: "3.3"
+
 services:
-  db:
-    image:  cassandra
-  web:
-    build: .
-    command: bash -c "sleep 30 && python manage.py sync_cassandra && python manage.py runserver 0.0.0.0:8000"
+  ui:
+    image: payrollui:1.0
+    container_name: ui
     ports:
-      - "8000:8000"
+      - 3000:80
+    depends_on:
+      - app
+  db:
+    image: cassandra:latest
+    container_name: db
+    volumes:
+      - ./database/data:/var/lib/cassandra
+  app:
+    image: payrollapp:1.0
+    container_name: app
+    command: bash -c "sleep 30 && python manage.py sync_cassandra && gunicorn --worker-class eventlet --timeout 120 --log-level debug --bind 0.0.0.0:8000 CompareEdge.wsgi"
     depends_on:
       - db
+
