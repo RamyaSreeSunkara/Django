@@ -453,7 +453,7 @@ class Comparision(APIView):
             hourscomparision=comparedict(legacyhours,newhours,uniquecomparecodes)
             taxablewagescomparision=comparedict(legacytaxablewages,newtaxablewages,uniquecomparecodes)
             for i in uniquecomparecodes:
-                if(amountcomparision[i]==0 and taxablewagescomparision[i] == 0 and taxablewagescomparision[i] == 0):
+                if(amountcomparision[i]==0 and taxablewagescomparision[i] == 0 and hourscomparision[i] == 0):
                     status="Data Match"
                 else:
                     status="Data Discrepancy"
