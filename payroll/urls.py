@@ -3,6 +3,8 @@ from django.urls import path
 from django.conf.urls import url,include
 from payroll import views
 urlpatterns = [
+    url(r'createuser/', views.createuser, name='createuser'),
+    url(r'checkfileuploaded/', views.checkFileUploaded, name='checkFileUploaded'),
     url(r'authenticate/', views.authenticateuser, name='authenticateuser'),
     url(r'comparision/', views.Comparision.as_view()),
     url(r'legacyempdata/', views.LegacyEmpData,name='LegacyEmpData'),
